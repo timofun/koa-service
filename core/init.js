@@ -4,7 +4,15 @@ class InitManager {
   static initCore (app) {
     InitManager.app = app
     InitManager.initLoadRouter()
+    InitManager.loadConfig()
+    InitManager.loadHttpException()
   }
+
+  static loadConfig(path = '') {
+    const configPath = path || process.cwd() + '/config/config.js'
+    global.config = require(configPath)
+  }
+
   static initLoadRouter () {
     const apiDir = `${process.cwd()}/app/api`
     requireDirectory(module, apiDir, {
@@ -17,6 +25,11 @@ class InitManager {
       }
     }
   }
+
+  static loadHttpException(){
+    global.errs = require('./http-exception')
+  }
+
 
 }
 
